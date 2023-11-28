@@ -166,6 +166,14 @@ class EpisodeBatch:
             ret = EpisodeBatch(self.scheme, self.groups, ret_bs, ret_max_t, data=new_data, device=self.device)
             return ret
 
+    def update_last_density_update_flag(self, idx, t_env, episode_update_vae_density_interval):
+        # flag_data = self.data.transition_data['last_density_update_t_env'][idx]
+        flag_data = self.data.transition_data['last_density_update_t_env']
+        for id in idx:
+            if t_env - flag_data[id] >= episode_update_vae_density_interval:
+                flag_data[id] = t_env
+
+
     def _get_num_items(self, indexing_item, max_size):
         if isinstance(indexing_item, list) or isinstance(indexing_item, np.ndarray):
             return len(indexing_item)

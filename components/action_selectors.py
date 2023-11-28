@@ -1,5 +1,8 @@
+import numpy as np
+import torch
 import torch as th
 from torch.distributions import Categorical
+from scipy.special import entr
 from .epsilon_schedules import DecayThenFlatSchedule
 
 REGISTRY = {}
