@@ -52,7 +52,6 @@ class Logger:
                 continue
             i += 1
             window = 5 if k != "epsilon" else 1
-            item = "{:.4f}".format(np.mean([x[1] for x in self.stats[k][-window:]]))
             try:
                 item = "{:.4f}".format(np.mean([x[1] for x in self.stats[k][-window:]]))
             except:
