@@ -1,4 +1,5 @@
 name: "smmae_qmix"
+map_print: "8m_vs_9m"
 
 action_selector: "smmae_alpha_adaptive"
 epsilon_start: 1.0
