@@ -138,7 +138,8 @@ class SMMAEQLearner:
         changed_num = 0
         if new_rewards is not None:
             new_rewards = - new_rewards    # is negative!
-            # new_rewards = new_rewards.cuda()     # to add env value
+            if not self.args.buffer_cpu_only or self.args.device != "cpu":
+                new_rewards = new_rewards.cuda()     # to add env value
             for i in range(mask.shape[0]):
                 if batch_to_update_flag[i]:
                     cur_batch_change_num = int(mask[i].sum())

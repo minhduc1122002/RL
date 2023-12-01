@@ -58,10 +58,16 @@ class VAEDensity(object):
         res_log_prob = None  # only for compatible with old code
         entr_list = None  # only for compatible with old code
         if agent_obs is not None:  # only for compatible with old code
-            try:
-                obs = agent_obs # in new code, agent_obs is tensor
-            except:
-                obs = torch.from_numpy(agent_obs.astype(np.float32))
+            if self.args.buffer_cpu_only or self.args.device == "cpu":
+                try:
+                    obs = agent_obs # in new code, agent_obs is tensor
+                except:
+                    obs = torch.from_numpy(agent_obs.astype(np.float32))
+            else:
+                try:
+                    obs = agent_obs.cuda() # in new code, agent_obs is tensor
+                except:
+                    obs = torch.from_numpy(agent_obs.astype(np.float32)).cuda()
 
             with torch.no_grad():
                 enc_features = self.enc[agent_id](obs)
@@ -103,11 +109,17 @@ class VAEDensity(object):
         if agent_obs is None:   # only for compatible with old code
             return
 
-        try:
-            obs = agent_obs  # in new code agent_obs is tensor
-        # obs = torch.from_numpy(state.copy().astype(np.float32)).cuda()
-        except:
-            obs = torch.from_numpy(agent_obs.astype(np.float32)) # use batch
+        if self.args.buffer_cpu_only or self.args.device == "cpu":
+            try:
+                obs = agent_obs # in new code, agent_obs is tensor
+            except:
+                obs = torch.from_numpy(agent_obs.astype(np.float32))
+        else:
+            try:
+                obs = agent_obs.cuda()  # in new code agent_obs is tensor
+            # obs = torch.from_numpy(state.copy().astype(np.float32)).cuda()
+            except:
+                obs = torch.from_numpy(agent_obs.astype(np.float32)).cuda() # use batch
 
         enc_features = self.enc[agent_id](obs)
         mu = self.enc_mu[agent_id](enc_features)
