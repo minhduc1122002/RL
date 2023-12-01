@@ -58,7 +58,7 @@ class VAEDensity(object):
         res_log_prob = None  # only for compatible with old code
         entr_list = None  # only for compatible with old code
         if agent_obs is not None:  # only for compatible with old code
-            if self.args.buffer_cpu_only or self.args.device == "cpu":
+            if self.args.device == "cpu":
                 try:
                     obs = agent_obs # in new code, agent_obs is tensor
                 except:
@@ -109,7 +109,7 @@ class VAEDensity(object):
         if agent_obs is None:   # only for compatible with old code
             return
 
-        if self.args.buffer_cpu_only or self.args.device == "cpu":
+        if self.args.device == "cpu":
             try:
                 obs = agent_obs # in new code, agent_obs is tensor
             except:
