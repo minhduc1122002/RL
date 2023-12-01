@@ -59,9 +59,9 @@ class VAEDensity(object):
         entr_list = None  # only for compatible with old code
         if agent_obs is not None:  # only for compatible with old code
             try:
-                obs = agent_obs.cuda() # in new code, agent_obs is tensor
+                obs = agent_obs # in new code, agent_obs is tensor
             except:
-                obs = torch.from_numpy(agent_obs.astype(np.float32)).cuda()
+                obs = torch.from_numpy(agent_obs.astype(np.float32))
 
             with torch.no_grad():
                 enc_features = self.enc[agent_id](obs)
@@ -104,10 +104,10 @@ class VAEDensity(object):
             return
 
         try:
-            obs = agent_obs.cuda()  # in new code agent_obs is tensor
+            obs = agent_obs  # in new code agent_obs is tensor
         # obs = torch.from_numpy(state.copy().astype(np.float32)).cuda()
         except:
-            obs = torch.from_numpy(agent_obs.astype(np.float32)).cuda() # use batch
+            obs = torch.from_numpy(agent_obs.astype(np.float32)) # use batch
 
         enc_features = self.enc[agent_id](obs)
         mu = self.enc_mu[agent_id](enc_features)
