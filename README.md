@@ -1,5 +1,5 @@
 # Multi-Agent Reinforcement Learning
-'Robot' course's final project by Bui Thuy Duong, Nguyen Minh Duc, Nguyen Huynh Tra My
+The Robot course final project about multi-agent reinforcement learning by Bui Thuy Duong, Nguyen Minh Duc, Nguyen Huynh Tra My
 
 ## Requirements
 Install StarCraft2 and SMAC.
@@ -31,7 +31,7 @@ python main.py --config=qmix --env-config=sc2 with learner=maser_q_learner t_max
 
 * Example of training SMMAE on sparse reward:
 ```
-python3 main.py --config=smmae_qmix --env-config=sc2 with t_max=2000000 use_cuda=True save_model=True env_args.map_name=3m env_args.reward_sparse=True device_num=0 seed=125
+python main.py --config=smmae_qmix --env-config=sc2 with t_max=2000000 use_cuda=True save_model=True env_args.map_name=3m env_args.reward_sparse=True device_num=0 seed=125
 ```
 
 ## Results
